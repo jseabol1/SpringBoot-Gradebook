@@ -1,0 +1,11 @@
+FROM openjdk:11
+
+        WORKDIR /src
+        
+        COPY ./GradebookJPA*.jar ./
+        
+
+        
+        ENTRYPOINT ["java","-jar","GradebookJPA-0.0.1-SNAPSHOT.jar"]
+        #CMD ["bash"]
+

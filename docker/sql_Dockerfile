@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/mssql/server:2017-latest AS db
+ 
+        ENV ACCEPT_EULA=Y
+        ENV MSSQL_SA_PASSWORD=Password1234
+        ENV MSSQL_PID=Developer
+        ENV MSSQL_TCP_PORT=1433
+
+        
+        WORKDIR /src
+        
+        COPY gradebook.sql . 
+        
+        
+        
+        RUN /opt/mssql/bin/sqlservr --accept-eula & sleep 30  && /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P 'Password1234'  -i /src/gradebook.sql
+

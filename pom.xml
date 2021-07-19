@@ -12,7 +12,7 @@
     <artifactId>GradebookJPA</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>GradebookJPA</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Simple Gradebook project for Spring Boot JPA</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -29,10 +29,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-
-
-
-
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
