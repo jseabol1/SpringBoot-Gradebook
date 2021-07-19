@@ -1,11 +1,11 @@
 FROM openjdk:11
 
-        WORKDIR /src
+        WORKDIR /bin
         
-        COPY ./GradebookJPA*.jar ./
+        COPY SpringBootGradebook-0.0.2-SNAPSHOT.jar .
         
 
         
-        ENTRYPOINT ["java","-jar","GradebookJPA-0.0.1-SNAPSHOT.jar"]
+        CMD ["java","-jar","/bin/SpringBootGradebook-0.0.2-SNAPSHOT.jar"]
         #CMD ["bash"]
 

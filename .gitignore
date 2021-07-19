@@ -12,6 +12,8 @@
 
 # Package Files #
 *.jar
+# Include the application jar for docker #
+!/docker/*.jar
 *.war
 *.nar
 *.ear

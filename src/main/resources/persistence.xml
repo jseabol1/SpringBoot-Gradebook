@@ -5,15 +5,15 @@
              version="3.0">
   <persistence-unit name="default">
 
-    <class>dev.seabolt.gradebookjpa.entity.AddressEntity</class>
-    <class>dev.seabolt.gradebookjpa.entity.AssignmentEntity</class>
-    <class>dev.seabolt.gradebookjpa.entity.AssignmentTypeEntity</class>
-    <class>dev.seabolt.gradebookjpa.entity.CourseEntity</class>
-    <class>dev.seabolt.gradebookjpa.entity.PersonEntity</class>
-    <class>dev.seabolt.gradebookjpa.entity.RegistrationEntity</class>
-    <class>dev.seabolt.gradebookjpa.entity.StudentEntity</class>
-    <class>dev.seabolt.gradebookjpa.entity.SubmissionEntity</class>
-    <class>dev.seabolt.gradebookjpa.entity.TeacherEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.AddressEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.AssignmentEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.AssignmentTypeEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.CourseEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.PersonEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.RegistrationEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.StudentEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.SubmissionEntity</class>
+    <class>dev.seabolt.springBootGradebook.entity.TeacherEntity</class>
     <properties>
       <property name="hibernate.connection.url" value="jdbc:sqlserver://localhost;database=Gradebook"/>
       <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>

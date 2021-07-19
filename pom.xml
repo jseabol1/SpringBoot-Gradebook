@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.seabolt</groupId>
-    <artifactId>GradebookJPA</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>GradebookJPA</name>
+    <artifactId>SpringBootGradebook</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+    <name>SpringBootGradebook</name>
     <description>Simple Gradebook project for Spring Boot JPA</description>
     <properties>
         <java.version>11</java.version>
