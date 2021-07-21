@@ -1,6 +1,9 @@
 package dev.seabolt.springBootGradebook.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -29,7 +32,7 @@ public class CourseEntity {
     
     @ManyToOne
     @JoinColumn(name = "TeacherID", referencedColumnName = "ID", nullable = false)
-    private TeacherEntity teacherByTeacherId;
+    private TeacherEntity teacher;
 
 
     @Override

@@ -4,42 +4,16 @@ import dev.seabolt.springBootGradebook.entity.AddressEntity;
 import dev.seabolt.springBootGradebook.repo.AddressRepo;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/Address")
-class AddressController {
-
-    private final AddressRepo repository;
+class AddressController extends ControllerBase<AddressEntity,AddressRepo> {
 
     AddressController(AddressRepo repository) {
-        this.repository = repository;
+        super(repository);
     }
 
-
-
-    @GetMapping
-    List<AddressEntity> list() {
-        List<AddressEntity> list = new ArrayList<>();
-        for(AddressEntity e : repository.findAll()){
-            list.add(e);
-        }
-        return list;
-    }
-
-    @PostMapping
-    AddressEntity newAddress(@RequestBody AddressEntity newAddress) {
-        return repository.save(newAddress);
-    }
-
-
-    @GetMapping("/GetByID/{id}")
-    AddressEntity GetByID(@PathVariable Long id) {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("address not found"));
-    }
 
     @GetMapping("/SearchByCity/{city}")
     List<AddressEntity> getByCity(@PathVariable String city) {
@@ -53,7 +27,7 @@ class AddressController {
     }
 
     @PutMapping("/UpdateByID/{id}")
-    AddressEntity replaceAddress(@RequestBody AddressEntity newAddress, @PathVariable Long id) {
+    AddressEntity updateByID(@RequestBody AddressEntity newAddress, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(Address -> {
@@ -69,8 +43,4 @@ class AddressController {
                 );
     }
 
-    @DeleteMapping("/DeleteByID/{id}")
-    void deleteAddress(@PathVariable Long id) {
-        repository.deleteById(id);
-    }
 }

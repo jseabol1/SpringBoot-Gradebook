@@ -1,6 +1,9 @@
 package dev.seabolt.springBootGradebook.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -25,7 +28,7 @@ public class PersonEntity {
 
     @ManyToOne
     @JoinColumn(name = "AddressID", referencedColumnName = "ID", nullable = false)
-    private AddressEntity addressByAddressId;
+    private AddressEntity address;
 
 
     @Override

@@ -4,59 +4,24 @@ import dev.seabolt.springBootGradebook.entity.SubmissionEntity;
 import dev.seabolt.springBootGradebook.repo.SubmissionRepo;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/Submission")
-class SubmissionController {
-
-    private final SubmissionRepo repository;
+class SubmissionController extends ControllerBase<SubmissionEntity, SubmissionRepo> {
 
     SubmissionController(SubmissionRepo repository) {
-        this.repository = repository;
-    }
-
-
-
-    @GetMapping
-    List<SubmissionEntity> list() {
-        List<SubmissionEntity> list = new ArrayList<>();
-        for(SubmissionEntity e : repository.findAll()){
-            list.add(e);
-        }
-        return list;
-    }
-
-    @PostMapping
-    SubmissionEntity newSubmission(@RequestBody SubmissionEntity newSubmission) {
-        return repository.save(newSubmission);
-    }
-
-
-    @GetMapping("/GetByID/{id}")
-    SubmissionEntity getByID(@PathVariable Long id) {
-
-        // TODO: 7/19/2021 Add custom exceptions 
-        // TODO: 7/19/2021 Add better error handling 
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Submission not found"));
-    }
-
-    @GetMapping("/GetByStudentID/{id}")
-    List<SubmissionEntity> getByStudentID(@PathVariable Long id) {
-
-        return  repository.getAllByStudentID(id);
+        super(repository);
     }
 
 
     @PutMapping("/UpdateByID/{id}")
-    SubmissionEntity replaceSubmission(@RequestBody SubmissionEntity newSubmission, @PathVariable Long id) {
+    SubmissionEntity updateByID(@RequestBody SubmissionEntity newSubmission, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(Submission -> {
                     Submission.setStudent(newSubmission.getStudent());
-                    Submission.setAssignmentByAssignmentId(newSubmission.getAssignmentByAssignmentId());
+                    Submission.setAssignment(newSubmission.getAssignment());
                     Submission.setPointsAwarded(newSubmission.getPointsAwarded());
                     Submission.setDateSubmitted(newSubmission.getDateSubmitted());
                     Submission.setComment(newSubmission.getComment());
@@ -67,8 +32,25 @@ class SubmissionController {
                 );
     }
 
-    @DeleteMapping("/DeleteByID/{id}")
-    void deleteSubmission(@PathVariable Long id) {
-        repository.deleteById(id);
+    @GetMapping("/SearchByStudentID/{id}")
+    List<SubmissionEntity> searchByStudentID(@PathVariable Long id) {
+        return repository.getAllByStudentId(id);
     }
+
+    @GetMapping("/GetByCourseAndStudent{courseID}{studentID}")
+    List<SubmissionEntity> getByCourseAndStudent(@RequestParam(name = "courseID") long courseID, @RequestParam(name = "studentID") long studentID) {
+        return repository.getAllByAssignmentCourseIdAndStudentId(courseID,studentID);
+    }
+
+    @DeleteMapping("/DeleteByCourseAndStudent{courseID}{studentID}")
+    void deleteByCourseAndStudent(@RequestParam(name = "courseID") long courseID, @RequestParam(name = "studentID") long studentID) {
+        List<SubmissionEntity> se = repository.getAllByAssignmentCourseIdAndStudentId(courseID, studentID);
+        repository.deleteAll(se);
+    }
+
+    @DeleteMapping("/DeleteAllByAssignmentID/{id}")
+    void deleteByAssignmentID(@PathVariable Long id) {
+        repository.deleteAll(repository.getAllByAssignmentId(id));
+    }
+
 }

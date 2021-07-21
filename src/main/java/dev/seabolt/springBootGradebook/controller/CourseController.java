@@ -4,41 +4,12 @@ import dev.seabolt.springBootGradebook.entity.CourseEntity;
 import dev.seabolt.springBootGradebook.repo.CourseRepo;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequestMapping("/Course")
-class CourseController {
-
-    private final CourseRepo repository;
+class CourseController extends ControllerBase<CourseEntity, CourseRepo> {
 
     CourseController(CourseRepo repository) {
-        this.repository = repository;
-    }
-
-
-
-    @GetMapping
-    List<CourseEntity> list() {
-        List<CourseEntity> list = new ArrayList<>();
-        for(CourseEntity e : repository.findAll()){
-            list.add(e);
-        }
-        return list;
-    }
-
-    @PostMapping
-    CourseEntity newCourse(@RequestBody CourseEntity newCourse) {
-        return repository.save(newCourse);
-    }
-
-
-    @GetMapping("/GetByID/{id}")
-    CourseEntity GetByID(@PathVariable Long id) {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+        super(repository);
     }
 
 
@@ -47,7 +18,7 @@ class CourseController {
 
         return repository.findById(id)
                 .map(Course -> {
-                    Course.setTeacherByTeacherId(newCourse.getTeacherByTeacherId());
+                    Course.setTeacher(newCourse.getTeacher());
                     Course.setName(newCourse.getName());
                     Course.setDateEnd(newCourse.getDateStart());
                     Course.setDateEnd(newCourse.getDateEnd());
@@ -58,8 +29,4 @@ class CourseController {
                 );
     }
 
-    @DeleteMapping("/DeleteByID/{id}")
-    void deleteCourse(@PathVariable Long id) {
-        repository.deleteById(id);
-    }
 }

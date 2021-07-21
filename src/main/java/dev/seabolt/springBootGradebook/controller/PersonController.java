@@ -4,41 +4,13 @@ import dev.seabolt.springBootGradebook.entity.PersonEntity;
 import dev.seabolt.springBootGradebook.repo.PersonRepo;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "/Person")
-class PersonController {
+class PersonController extends ControllerBase<PersonEntity, PersonRepo> {
 
-    private final PersonRepo repository;
 
     PersonController(PersonRepo repository) {
-        this.repository = repository;
-    }
-
-
-
-    @GetMapping
-    List<PersonEntity> list() {
-        List<PersonEntity> list = new ArrayList<>();
-        for(PersonEntity e : repository.findAll()){
-            list.add(e);
-        }
-        return list;
-    }
-
-    @PostMapping
-    PersonEntity newAddress(@RequestBody PersonEntity newPerson) {
-        return repository.save(newPerson);
-    }
-
-
-    @GetMapping("/GetByID/{id}")
-    PersonEntity GetByID(@PathVariable Long id) {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Person not found"));
+        super(repository);
     }
 
 
@@ -49,7 +21,7 @@ class PersonController {
                 .map(Person -> {
                     Person.setFirstName(newPerson.getFirstName());
                     Person.setLastName(newPerson.getLastName());
-                    Person.setAddressByAddressId(newPerson.getAddressByAddressId());
+                    Person.setAddress(newPerson.getAddress());
                     return repository.save(Person);
                 })
                 .orElseThrow( () ->
@@ -57,14 +29,4 @@ class PersonController {
                 );
     }
 
-    @DeleteMapping("/DeleteByID/{id}")
-    void deleteAddress(@PathVariable Long id) {
-
-        try {
-            repository.deleteById(id);
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
-    }
 }

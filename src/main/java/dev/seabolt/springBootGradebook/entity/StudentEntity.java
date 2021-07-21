@@ -1,6 +1,9 @@
 package dev.seabolt.springBootGradebook.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -23,7 +26,7 @@ public class StudentEntity {
 
     @OneToOne
     @JoinColumn(name = "PersonID", referencedColumnName = "ID", nullable = false)
-    private PersonEntity personById;
+    private PersonEntity person;
 
 
     @Override
@@ -31,11 +34,11 @@ public class StudentEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentEntity that = (StudentEntity) o;
-        return id == that.id && major.equals(that.major) && personById.equals(that.personById);
+        return id == that.id && major.equals(that.major) && person.equals(that.person);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, major, personById);
+        return Objects.hash(id, major, person);
     }
 }

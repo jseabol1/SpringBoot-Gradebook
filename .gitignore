@@ -27,6 +27,7 @@ hs_err_pid*
 /.idea/
 /.mvn/
 
+# Github suggested Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -41,3 +42,6 @@ buildNumber.properties
 /mvnw.cmd
 /mvnw
 *.iml
+
+# Persistence data. Shouldn't be needed with SpringBoot
+persistence.xml

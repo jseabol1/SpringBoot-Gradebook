@@ -28,18 +28,18 @@ public class TeacherEntity {
 
     @ManyToOne
     @JoinColumn(name = "PersonID", referencedColumnName = "ID", nullable = false)
-    private PersonEntity personByPersonId;
+    private PersonEntity person;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeacherEntity that = (TeacherEntity) o;
-        return id == that.id && rank.equals(that.rank) && department.equals(that.department) && personByPersonId.equals(that.personByPersonId);
+        return id == that.id && rank.equals(that.rank) && department.equals(that.department) && person.equals(that.person);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, rank, department, personByPersonId);
+        return Objects.hash(id, rank, department, person);
     }
 }

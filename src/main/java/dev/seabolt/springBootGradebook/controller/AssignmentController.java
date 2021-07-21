@@ -4,50 +4,20 @@ import dev.seabolt.springBootGradebook.entity.AssignmentEntity;
 import dev.seabolt.springBootGradebook.repo.AssignmentRepo;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
-@RequestMapping
-class AssignmentController {
-
-    private final AssignmentRepo repository;
+@RequestMapping("/Assignment")
+class AssignmentController extends ControllerBase<AssignmentEntity, AssignmentRepo> {
 
     AssignmentController(AssignmentRepo repository) {
-        this.repository = repository;
+        super(repository);
     }
-
-
-
-    @GetMapping
-    List<AssignmentEntity> list() {
-        List<AssignmentEntity> list = new ArrayList<>();
-        for(AssignmentEntity e : repository.findAll()){
-            list.add(e);
-        }
-        return list;
-    }
-
-    @PostMapping
-    AssignmentEntity newAssignment(@RequestBody AssignmentEntity newAssignment) {
-        return repository.save(newAssignment);
-    }
-
-
-    @GetMapping("/GetByID/{id}")
-    AssignmentEntity GetByID(@PathVariable Long id) {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Assignment not found"));
-    }
-
 
     @PutMapping("/UpdateByID/{id}")
-    AssignmentEntity replaceAssignment(@RequestBody AssignmentEntity newAssignment, @PathVariable Long id) {
+    AssignmentEntity updateByID(@RequestBody AssignmentEntity newAssignment, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(Assignment -> {
-                    Assignment.setCourseByCourseId(newAssignment.getCourseByCourseId());
+                    Assignment.setCourse(newAssignment.getCourse());
                     Assignment.setName(newAssignment.getName());
                     Assignment.setPointsAvailable(newAssignment.getPointsAvailable());
                     Assignment.setDateAssigned(newAssignment.getDateAssigned());
@@ -61,8 +31,9 @@ class AssignmentController {
                 );
     }
 
-    @DeleteMapping("/DeleteByID/{id}")
-    void deleteAssignment(@PathVariable Long id) {
+    @DeleteMapping("DeleteAllByID/{id}")
+    void deleteAllByID(@PathVariable Long id) {
         repository.deleteById(id);
     }
+
 }

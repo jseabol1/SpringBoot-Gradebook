@@ -4,41 +4,13 @@ import dev.seabolt.springBootGradebook.entity.TeacherEntity;
 import dev.seabolt.springBootGradebook.repo.TeacherRepo;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequestMapping("/Teacher")
-class TeacherController {
+class TeacherController extends ControllerBase<TeacherEntity,TeacherRepo> {
 
-    private final TeacherRepo repository;
 
     TeacherController(TeacherRepo repository) {
-        this.repository = repository;
-    }
-
-
-
-    @GetMapping
-    List<TeacherEntity> list() {
-        List<TeacherEntity> list = new ArrayList<>();
-        for(TeacherEntity e : repository.findAll()){
-            list.add(e);
-        }
-        return list;
-    }
-
-    @PostMapping
-    TeacherEntity newPerson(@RequestBody TeacherEntity newPerson) {
-        return repository.save(newPerson);
-    }
-
-
-    @GetMapping("/GetByID/{id}")
-    TeacherEntity GetByID(@PathVariable Long id) {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Teacher not found"));
+        super(repository);
     }
 
 
@@ -56,14 +28,4 @@ class TeacherController {
                 );
     }
 
-    @DeleteMapping("/DeleteByID/{id}")
-    void deleteAddress(@PathVariable Long id) {
-
-        try {
-            repository.deleteById(id);
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
-    }
 }

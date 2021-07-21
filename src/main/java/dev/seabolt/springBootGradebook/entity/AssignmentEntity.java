@@ -1,6 +1,9 @@
 package dev.seabolt.springBootGradebook.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -19,30 +22,30 @@ public class AssignmentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "Name")
+    //@Column(name = "Name")
     private String name;
-    @Column(name = "PointsAvailable")
+    //@Column(name = "PointsAvailable")
     private int pointsAvailable;
-    @Column(name = "DateAssigned")
+    //@Column(name = "DateAssigned")
     private Date dateAssigned;
-    @Column(name = "DateDue")
+   //@Column(name = "DateDue")
     private Date dateDue;
-    @Column(name = "IsRepeatable")
+    //@Column(name = "IsRepeatable")
     private boolean isRepeatable;
-    @Column(name = "HasBonusPoints")
+    //@Column(name = "HasBonusPoints")
     private boolean hasBonusPoints;
-    @Column(name = "TotalAverage")
+    //@Column(name = "TotalAverage")
     private Integer totalAverage;
-    @Column(name = "HighScoreAverage")
+    //@Column(name = "HighScoreAverage")
     private Integer highScoreAverage;
 
     @ManyToOne
     @JoinColumn(name = "CourseID", referencedColumnName = "ID", nullable = false)
-    private CourseEntity courseByCourseId;
+    private CourseEntity course;
 
     @ManyToOne
     @JoinColumn(name = "AssignmentTypeID", referencedColumnName = "ID", nullable = false)
-    private AssignmentTypeEntity assignmentTypeByAssignmentTypeId;
+    private AssignmentTypeEntity assignmentType;
 
 
 

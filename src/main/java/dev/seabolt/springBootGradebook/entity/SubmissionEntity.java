@@ -1,6 +1,9 @@
 package dev.seabolt.springBootGradebook.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -32,18 +35,18 @@ public class SubmissionEntity {
 
     @ManyToOne
     @JoinColumn(name = "AssignmentID", referencedColumnName = "ID", nullable = false)
-    private AssignmentEntity assignmentByAssignmentId;
+    private AssignmentEntity assignment;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SubmissionEntity that = (SubmissionEntity) o;
-        return id == that.id && pointsAwarded.equals(that.pointsAwarded) && dateSubmitted.equals(that.dateSubmitted) && comment.equals(that.comment) && student.equals(that.student) && assignmentByAssignmentId.equals(that.assignmentByAssignmentId);
+        return id == that.id && pointsAwarded.equals(that.pointsAwarded) && dateSubmitted.equals(that.dateSubmitted) && comment.equals(that.comment) && student.equals(that.student) && assignment.equals(that.assignment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, pointsAwarded, dateSubmitted, comment, student, assignmentByAssignmentId);
+        return Objects.hash(id, pointsAwarded, dateSubmitted, comment, student, assignment);
     }
 }

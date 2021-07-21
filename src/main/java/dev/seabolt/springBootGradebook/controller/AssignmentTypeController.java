@@ -4,46 +4,18 @@ import dev.seabolt.springBootGradebook.entity.AssignmentTypeEntity;
 import dev.seabolt.springBootGradebook.repo.AssignmentTypeRepo;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequestMapping("/AssignmentType")
-class AssignmentTypeController {
+class AssignmentTypeController extends ControllerBase<AssignmentTypeEntity, AssignmentTypeRepo> {
 
-    private final AssignmentTypeRepo repository;
 
     AssignmentTypeController(AssignmentTypeRepo repository) {
-        this.repository = repository;
-    }
-
-
-
-    @GetMapping
-    List<AssignmentTypeEntity> list() {
-        List<AssignmentTypeEntity> list = new ArrayList<>();
-        for(AssignmentTypeEntity e : repository.findAll()){
-            list.add(e);
-        }
-        return list;
-    }
-
-    @PostMapping
-    AssignmentTypeEntity newAssignmentType(@RequestBody AssignmentTypeEntity newAssignmentType) {
-        return repository.save(newAssignmentType);
-    }
-
-
-    @GetMapping("/GetByID/{id}")
-    AssignmentTypeEntity GetByID(@PathVariable Long id) {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("AssignmentType not found"));
+        super(repository);
     }
 
 
     @PutMapping("/UpdateByID/{id}")
-    AssignmentTypeEntity replaceAssignmentType(@RequestBody AssignmentTypeEntity newAssignmentType, @PathVariable Long id) {
+    AssignmentTypeEntity updateByID(@RequestBody AssignmentTypeEntity newAssignmentType, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(AssignmentType -> {
@@ -56,8 +28,4 @@ class AssignmentTypeController {
                 );
     }
 
-    @DeleteMapping("/DeleteByID/{id}")
-    void deleteAssignmentType(@PathVariable Long id) {
-        repository.deleteById(id);
-    }
 }
