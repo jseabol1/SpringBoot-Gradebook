@@ -26,7 +26,6 @@ public class CourseEntity {
     private Date dateStart;
     private Date dateEnd;
 
-    
     @ManyToOne
     @JoinColumn(name = "TeacherID", referencedColumnName = "ID", nullable = false)
     private TeacherEntity teacher;

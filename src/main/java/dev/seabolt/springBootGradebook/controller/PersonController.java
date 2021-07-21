@@ -24,7 +24,7 @@ class PersonController extends ControllerBase<PersonEntity, PersonRepo> {
                     Person.setAddress(newPerson.getAddress());
                     return repository.save(Person);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }

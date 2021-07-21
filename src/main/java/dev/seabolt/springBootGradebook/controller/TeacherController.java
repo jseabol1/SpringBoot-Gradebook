@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Teacher")
-class TeacherController extends ControllerBase<TeacherEntity,TeacherRepo> {
+class TeacherController extends ControllerBase<TeacherEntity, TeacherRepo> {
 
 
     TeacherController(TeacherRepo repository) {
@@ -23,7 +23,7 @@ class TeacherController extends ControllerBase<TeacherEntity,TeacherRepo> {
                     Teacher.setDepartment(newPerson.getDepartment());
                     return repository.save(Teacher);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }

@@ -23,7 +23,7 @@ class AssignmentTypeController extends ControllerBase<AssignmentTypeEntity, Assi
                     AssignmentType.setWeight(newAssignmentType.getWeight());
                     return repository.save(AssignmentType);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }

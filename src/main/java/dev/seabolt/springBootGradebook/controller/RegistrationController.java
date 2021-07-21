@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Registration")
-class RegistrationController extends ControllerBase<RegistrationEntity,RegistrationRepo> {
+class RegistrationController extends ControllerBase<RegistrationEntity, RegistrationRepo> {
 
     RegistrationController(RegistrationRepo repository) {
         super(repository);
@@ -22,7 +22,7 @@ class RegistrationController extends ControllerBase<RegistrationEntity,Registrat
                     Registration.setStudent(newRegistration.getStudent());
                     return repository.save(Registration);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }

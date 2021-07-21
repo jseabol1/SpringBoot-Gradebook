@@ -22,7 +22,7 @@ class StudentController extends ControllerBase<StudentEntity, StudentRepo> {
                     Student.setMajor(newPerson.getMajor());
                     return repository.save(Student);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }

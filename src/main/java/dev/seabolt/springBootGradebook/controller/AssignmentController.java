@@ -26,7 +26,7 @@ class AssignmentController extends ControllerBase<AssignmentEntity, AssignmentRe
                     Assignment.setHasBonusPoints(newAssignment.isHasBonusPoints());
                     return repository.save(Assignment);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }

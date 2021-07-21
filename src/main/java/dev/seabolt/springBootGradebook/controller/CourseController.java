@@ -24,7 +24,7 @@ class CourseController extends ControllerBase<CourseEntity, CourseRepo> {
                     Course.setDateEnd(newCourse.getDateEnd());
                     return repository.save(Course);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }

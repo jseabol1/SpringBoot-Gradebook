@@ -27,7 +27,7 @@ class SubmissionController extends ControllerBase<SubmissionEntity, SubmissionRe
                     Submission.setComment(newSubmission.getComment());
                     return repository.save(Submission);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }
@@ -39,7 +39,7 @@ class SubmissionController extends ControllerBase<SubmissionEntity, SubmissionRe
 
     @GetMapping("/GetByCourseAndStudent{courseID}{studentID}")
     List<SubmissionEntity> getByCourseAndStudent(@RequestParam(name = "courseID") long courseID, @RequestParam(name = "studentID") long studentID) {
-        return repository.getAllByAssignmentCourseIdAndStudentId(courseID,studentID);
+        return repository.getAllByAssignmentCourseIdAndStudentId(courseID, studentID);
     }
 
     @DeleteMapping("/DeleteByCourseAndStudent{courseID}{studentID}")

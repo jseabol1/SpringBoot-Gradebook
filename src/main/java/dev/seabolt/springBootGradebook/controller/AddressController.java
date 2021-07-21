@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Address")
-class AddressController extends ControllerBase<AddressEntity,AddressRepo> {
+class AddressController extends ControllerBase<AddressEntity, AddressRepo> {
 
     AddressController(AddressRepo repository) {
         super(repository);
@@ -20,7 +20,7 @@ class AddressController extends ControllerBase<AddressEntity,AddressRepo> {
 
         List<AddressEntity> list = repository.findByCity(city);
 
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             throw new RuntimeException("None found");
         }
         return list;
@@ -38,7 +38,7 @@ class AddressController extends ControllerBase<AddressEntity,AddressRepo> {
                     Address.setPostalCode(newAddress.getPostalCode());
                     return repository.save(Address);
                 })
-                .orElseThrow( () ->
+                .orElseThrow(() ->
                         new RuntimeException("ID Not found for update")
                 );
     }
