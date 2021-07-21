@@ -114,10 +114,9 @@ The relevant section is:
 ### Running Locally 
 
 The application has been configured to connect to a named container through a Docker network.
-Running the application against a different instance of SQL Server will require changing the database URL and rebuilding the project.
-Additionally, you will likely have to change
+Running the application against a different instance of SQL Server will require changing the database configuration and rebuilding the project.
 
-#### Setting The Database URL
+#### Setting The Database Configuration
 
 > Please see the [disclaimer on credentials.](#credentials)
 
