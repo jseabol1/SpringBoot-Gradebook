@@ -4,42 +4,97 @@ A simple web API for managing a relational database.
 
 ---
 
+- [About](#about)
+- [Quick Start](#quick-start)
+- [Dependencies](#dependencies)
+  * [Optional Dependencies](#optional-dependencies)
+- [Configuration](#configuration)
+  * [Docker-Compose](#docker-compose)
+  * [Running Locally](#running-locally)
+    + [Setting The Database URL](#setting-the-database-url)
+    + [Building With Maven](#building-with-maven)
+- [Running the application](#running-the-application)
+  * [With Docker-Compose](#with-docker-compose)
+  * [Without Docker-Compose](#without-docker-compose)
+- [Help](#help)
+  * [SQL Server](#sql-server)
+- [Resources](#resources)
+  * [Endpoints](#endpoints)
+  * [Technologies Used](#technologies-used)
+    + [Java](#java)
+    + [Database](#database)
+    + [Containerization](#containerization)
+- [Todo](#todo)
+- [License](#license)
+
+---
+
 ## About
 
-SpringBootGradebook is a student project that explores the use of Spring Data JPA and Spring Web, 
+SpringBootGradebook is a student project exploring the use of Spring Data JPA and Spring Web, 
 along with various other technologies. It aims to provide an *adequate* implementation of managing a
 relational database with a web based API. The goal was to do this for a pre-existing database without modifying
-the schema of that database and to provide a full set of CRUD operations.
+the schema of that database, and to provide a full set of CRUD operations.
+
+---
+
+## Quick Start
+
+Current project images are hosted on Docker Hub and provide a quick way to get started.  
+If you are pulling the project from GitHub you can [quickstart with docker-compose.](#with-docker-compose)
+
+```shell
+#Create a network for our containers
+docker network create -d bridge gradebook-network
+
+# Get the latest seeded database image, assign it to the network and give it the correct name name
+docker run -d --network gradebook-network --name mssql jseabolt/gradebook-database
+
+# Get the latest application image, assign it to the network and map the API to a port on the host.
+docker run -d --network gradebook-network -p 8585:8080 jseabolt/springbootgradebook
+
+## Test that the api is accessible with curl
+curl -i -X GET http://localhost:8585/Student
 
 
-All code in this project should be seen as an exploration of the concepts, and not a definitive example of them.
+```
 
 ---
 
 ## Dependencies
 
-> Docker  
-> Docker-Compose
+```
+ Docker  
+ Docker-Compose
+```
 
 ### Optional Dependencies
-These are only required if you are running the application outside of Docker or against a local instance
+These are only required if you are building and running the application outside of Docker or against a local instance
 of the database.
 
-> Java 11  
-> Maven  
-> Microsoft SQL Server 2017
+```
+ Java 11  
+ Maven  
+ Microsoft SQL Server 2017
+```
 
 ---
 
 ## Configuration
 
+| File                   | Path      | Use |
+|------------------------|-----------|-----|
+| docker-compose.yml     | ./docker/ | Configure the localhost port used to access the API when running with `docker-compose`. |
+| application.properties | ./src/main/resources/ | Customize the database connection for running without `docker-compose`.|
+
 ### Docker-Compose
+
 
 While running the application with `docker-compose` *should* require no additional configuration, it is possible
 that there is already something running at `localhost:8080` on your machine. If this is the case, the port mapping
 can be configured in:
 
-`dockerfile/docker-compose.yml`
+`docker-compose.yml`
 
 The relevant section is:
 ```yaml
@@ -56,14 +111,14 @@ The relevant section is:
 
 ### Running Locally 
 
-The application has been configured to connect to a named Docker host. Running the application against a different
-instance of SQL Server will require changing the database URL and rebuilding the project.
+The application has been configured to connect to a named container through a Docker network.
+Running the application against a different instance of SQL Server will require changing the database URL and rebuilding the project.
 
 #### Setting The Database URL
 
 The database URL can be configured in:
 
-`src/main/resources/application.properties`
+`application.properties`
 
 The relevant section is:
 
@@ -106,7 +161,8 @@ docker-compose build
 docker-compose up -d
 ```
 
-That's it, you should now have access to the API via `localhost:8080`
+That's it, you should now have access to the API via `localhost:8080` or a custom port
+if you've configured it in your [docker-compose.](#docker-compose)
 
 > **Note:** The `-d` at the end of the command indicates that it should run detached from the terminal
 > that spawned it. The application is configured to output the queries it executes to terminal, so if you would
@@ -129,9 +185,69 @@ Once you have built the project, navigate to the folder containing the `.jar` an
 
 ## Help
 
-A partial list of available endpoints can be found [here](ENDPOINTS.md).  
+
+### SQL Server
+ 
+ - The file used to seed the database can be found in `docker/gradebook.sql`.
+
+For convenience in development and testing, a pre-seeded SQL Server image is
+available through Docker Hub via `jseabolt/gradebook-database`. 
+To use it run
+```shell
+docker run -d -p <host-port>:1433 jseabolt/gradebook-database
+```
+where ` <host-port>` is the port you want to access the database through on your local machine.
+
+>Be sure to [set the database URL!](#setting-the-database-url)
+
+This is useful when you are developing and :
+
+1. Frequently rebuilding the entire project for docker-compose is cumbersome.
+2. You already have SQL Server but want to keep the gradebook database isolated.
+3. Do not have SQL Server and do not wish to install it.
+
+If you do not wish to pull a non-official image from a remote, you can build and run the
+equivalent image by navigating to the `/docker` directory and running :  
+```shell
+#Build the image from the local dockerfile.
+docker build -t gradebook-database -f sql_Dockerfile .
+
+#Start a container instance for the image, detached and listening on the <host-port>.
+docker run -d -p <host-port>1433 gradebook-database
+```
+
+This will pull the latest [official Microsoft image](https://hub.docker.com/_/microsoft-mssql-server)
+and seed the database locally, allowing you to verify, secure, and modify the image. 
 
 ---
+
+ ## Resources
+
+### Endpoints
+A partial list of available endpoints can be found [here](ENDPOINTS.md).
+
+### Technologies Used
+
+#### Java
+
+- [Spring Boot](https://spring.io/projects/spring-boot)
+  - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
+  - [Spring Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html)
+- [Lombok](https://projectlombok.org/)
+- [Apache Maven](https://maven.apache.org/)
+- [OpenJDK 11](https://openjdk.java.net/projects/jdk/11/)
+
+#### Database
+
+- [Microsoft SQL Server 2017](https://www.microsoft.com/en-us/sql-server/sql-server-2017)
+
+#### Containerization
+
+- [Docker](https://www.docker.com/)
+  - [Docker-Compose](https://docs.docker.com/compose/)
+
+---
+
 
 
 ## Todo
@@ -145,27 +261,6 @@ A partial list of available endpoints can be found [here](ENDPOINTS.md).
 
 ---
 
-## Technologies Used In This Project
-
-### Java
-
-- [Spring Boot](https://spring.io/projects/spring-boot)
-  - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
-  - [Spring Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html)
-- [Lombok](https://projectlombok.org/)
-- [Apache Maven](https://maven.apache.org/)
-- [OpenJDK 11](https://openjdk.java.net/projects/jdk/11/)
-
-### Database
-
-- [Microsoft SQL Server 2017](https://www.microsoft.com/en-us/sql-server/sql-server-2017)
-
-### Containerization
-
-- [Docker](https://www.docker.com/)
-  - [Docker-Compose](https://docs.docker.com/compose/)
-
----
 
 ## License
 
