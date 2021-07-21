@@ -21,9 +21,7 @@ public class TeacherEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "Rank")
     private String rank;
-    @Column(name = "Department")
     private String department;
 
     @ManyToOne

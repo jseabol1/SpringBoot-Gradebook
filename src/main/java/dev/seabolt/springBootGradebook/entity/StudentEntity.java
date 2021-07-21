@@ -21,7 +21,7 @@ public class StudentEntity {
     @Column(columnDefinition = "INT")
     private long id;
 
-    @Column(name = "Major")
+
     private String major;
 
     @OneToOne

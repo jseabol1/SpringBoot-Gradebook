@@ -22,11 +22,8 @@ public class SubmissionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "PointsAwarded")
     private Integer pointsAwarded;
-    @Column(name = "DateSubmitted")
     private Date dateSubmitted;
-    @Column(name = "Comment")
     private String comment;
 
     @ManyToOne

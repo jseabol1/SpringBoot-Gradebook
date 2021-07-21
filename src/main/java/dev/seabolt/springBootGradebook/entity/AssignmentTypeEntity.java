@@ -22,9 +22,8 @@ public class AssignmentTypeEntity {
     private long id;
 
     private String name;
-    @Column(name = "Weight",columnDefinition = "NUMERIC(3,0)")
+    @Column(columnDefinition = "NUMERIC(3,0)")
     private int weight;
-
 
 
     @Override

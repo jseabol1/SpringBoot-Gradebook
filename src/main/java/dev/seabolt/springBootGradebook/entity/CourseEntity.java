@@ -22,11 +22,8 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "Name")
     private String name;
-    @Column(name = "DateStart")
     private Date dateStart;
-    @Column(name = "DateEnd")
     private Date dateEnd;
 
     

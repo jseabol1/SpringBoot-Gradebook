@@ -22,21 +22,13 @@ public class AssignmentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //@Column(name = "Name")
     private String name;
-    //@Column(name = "PointsAvailable")
     private int pointsAvailable;
-    //@Column(name = "DateAssigned")
     private Date dateAssigned;
-   //@Column(name = "DateDue")
     private Date dateDue;
-    //@Column(name = "IsRepeatable")
     private boolean isRepeatable;
-    //@Column(name = "HasBonusPoints")
     private boolean hasBonusPoints;
-    //@Column(name = "TotalAverage")
     private Integer totalAverage;
-    //@Column(name = "HighScoreAverage")
     private Integer highScoreAverage;
 
     @ManyToOne
@@ -46,8 +38,6 @@ public class AssignmentEntity {
     @ManyToOne
     @JoinColumn(name = "AssignmentTypeID", referencedColumnName = "ID", nullable = false)
     private AssignmentTypeEntity assignmentType;
-
-
 
 
     @Override

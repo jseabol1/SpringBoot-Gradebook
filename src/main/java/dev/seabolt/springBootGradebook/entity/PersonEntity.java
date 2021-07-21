@@ -21,9 +21,7 @@ public class PersonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "FirstName")
     private String firstName;
-    @Column(name = "LastName")
     private String lastName;
 
     @ManyToOne
