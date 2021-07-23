@@ -1,5 +1,9 @@
 FROM openjdk:11
 
+        ENV host mssql
+        ENV port 1433
+        ENV db_name Gradebook
+
         WORKDIR /bin
         EXPOSE 8080
         
@@ -7,6 +11,7 @@ FROM openjdk:11
         
 
         
-        CMD ["java","-jar","/bin/SpringBootGradebook-0.0.2-SNAPSHOT.jar"]
-        #CMD ["bash"]
+        CMD ["/bin/bash", "-c", "java -jar /bin/SpringBootGradebook-0.0.2-SNAPSHOT.jar --spring.datasource.url=jdbc:sqlserver://${host}:${port};databaseName=${db_name}"]
+
+        #CMD ["/bin/bash", "-c", "echo ${host}"]
 

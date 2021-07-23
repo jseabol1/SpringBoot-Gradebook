@@ -4,6 +4,9 @@ A simple web API for managing a relational database.
 
 ---
 
+<details>
+  <summary>Table of Contents</summary>
+
 - [About](#about)
 - [Quick Start](#quick-start)
 - [Dependencies](#dependencies)
@@ -27,6 +30,8 @@ A simple web API for managing a relational database.
 - [Todo](#todo)
 - [Discaimers](#disclaimers)
 - [License](#license)
+
+</details>
 
 ---
 
