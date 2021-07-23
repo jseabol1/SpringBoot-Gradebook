@@ -61,6 +61,7 @@
                 <configuration>
                     <useReleaseProfile>false</useReleaseProfile>
                     <tagNameFormat>v@{version}</tagNameFormat>
+                    <goals>install</goals>
                 </configuration>
             </plugin>
         </plugins>
