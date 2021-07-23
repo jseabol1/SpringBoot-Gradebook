@@ -1,7 +1,10 @@
 package dev.seabolt.springBootGradebook.controller;
 
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ import java.util.List;
  */
 @NoArgsConstructor
 //@RestController
-abstract class ControllerBase<E, T extends CrudRepository<E, Long>> {
+abstract class ControllerBase<E, T extends CrudRepository<E, Long> & PagingAndSortingRepository<E, Long>> {
 
     protected T repository;
 
@@ -65,5 +68,14 @@ abstract class ControllerBase<E, T extends CrudRepository<E, Long>> {
     @DeleteMapping("/DeleteByID/{id}")
     void deleteAddress(@PathVariable Long id) {
         repository.deleteById(id);
+    }
+
+    @GetMapping("/Page/{page}{perPage}")
+    List<E> getByPage(@PathVariable(name = "page") int page, @RequestParam(name = "perPage", defaultValue = "10") int perPage) {
+
+        Pageable pageable = PageRequest.of((page - 1), perPage);
+        return repository.findAll(pageable).toList();
+
+
     }
 }
