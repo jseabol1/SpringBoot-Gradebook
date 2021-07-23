@@ -9,7 +9,7 @@
     </parent>
     <groupId>dev.seabolt</groupId>
     <artifactId>SpringBootGradebook</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>SpringBootGradebook</name>
     <description>Simple Gradebook project for Spring Boot JPA</description>
 
