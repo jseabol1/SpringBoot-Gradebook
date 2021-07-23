@@ -14,9 +14,9 @@
     <description>Simple Gradebook project for Spring Boot JPA</description>
 
     <scm>
-        <connection>scm:git:git@github.com:jseabol1/SpringBootGradebook</connection>
-        <url>scm:git:git@github.com:jseabol1/SpringBootGradebook</url>
-        <developerConnection>scm:git:git@github.com:jseabol1/SpringBootGradebook</developerConnection>
+        <connection>scm:git:jseabol1@github.com:jseabol1/SpringBootGradebook</connection>
+        <url>scm:git:jseabol1@github.com:jseabol1/SpringBootGradebook</url>
+        <developerConnection>scm:git:jseabol1@github.com:jseabol1/SpringBootGradebook</developerConnection>
         <tag>v0.0.2</tag>
     </scm>
 
